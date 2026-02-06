@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { getAnimeList } = require("../controllers/scrapeController");
 
-router.get("/", getAnimeList);
+router.get("/", (req, res) => {
+  res.json({ status: "API HIDUP 🔥" });
+});
 
-module.exports = router;
+module.exports = router; 
