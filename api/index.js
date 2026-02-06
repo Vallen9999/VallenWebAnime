@@ -19,12 +19,17 @@ app.use(
 /* ===== STATIC FILE ===== */
 app.use(express.static(path.join(process.cwd(), "public")));
 
-/* ===== API ===== */
+/* ===== API ROUTES (INI WAJIB DI ATAS FALLBACK) ===== */
+app.use("/api/anime", require("./routes/anime"));
+app.use("/api/schedule", require("./routes/schedule"));
+app.use("/api/user", require("./routes/user"));
+
+/* ===== HEALTH CHECK ===== */
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", app: "VallenAnime" });
 });
 
-/* ===== FRONTEND FALLBACK ===== */
+/* ===== FRONTEND FALLBACK (PALING BAWAH) ===== */
 app.get("*", (req, res) => {
   res.sendFile(path.join(process.cwd(), "public/index.html"));
 });
