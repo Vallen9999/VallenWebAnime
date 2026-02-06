@@ -1,22 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { getUser } = require("../controllers/userController");
 
-const {
-  createUser
-} = require("../api/controllers/userController");
-
-// POST /api/user
-router.post("/", (req, res, next) => {
-  const { username, email } = req.body;
-
-  if (!username || !email) {
-    return res.status(400).json({
-      success: false,
-      message: "Username and email are required"
-    });
-  }
-
-  next();
-}, createUser);
+router.get("/", getUser);
 
 module.exports = router;
