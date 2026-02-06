@@ -16,18 +16,18 @@ app.use(
   })
 );
 
-/* ===== STATIC FILE ===== */
-app.use(express.static(path.join(process.cwd(), "public")));
-
-/* ===== API ROUTES (INI WAJIB DI ATAS FALLBACK) ===== */
+/* ===== API ROUTES (WAJIB DI ATAS) ===== */
 app.use("/api/anime", require("./routes/anime"));
 app.use("/api/schedule", require("./routes/schedule"));
 app.use("/api/user", require("./routes/user"));
 
-/* ===== HEALTH CHECK ===== */
+/* ===== HEALTH ===== */
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", app: "VallenAnime" });
 });
+
+/* ===== STATIC FILE ===== */
+app.use(express.static(path.join(process.cwd(), "public")));
 
 /* ===== FRONTEND FALLBACK (PALING BAWAH) ===== */
 app.get("*", (req, res) => {
