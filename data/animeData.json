@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Naruto",
+        "image": "https://example.com/naruto.jpg",
+        "episodes": 220,
+        "genre": ["Action", "Adventure", "Shonen"],
+        "rating": 8.5
+    },
+    {
+        "title": "Attack on Titan",
+        "image": "https://example.com/aot.jpg",
+        "episodes": 75,
+        "genre": ["Action", "Drama", "Fantasy"],
+        "rating": 9.0
+    },
+    {
+        "title": "One Piece",
+        "image": "https://example.com/onepiece.jpg",
+        "episodes": 1000,
+        "genre": ["Action", "Adventure", "Shonen"],
+        "rating": 8.8
+    }
+]

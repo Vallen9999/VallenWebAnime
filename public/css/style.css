@@ -1,0 +1,34 @@
+:root {
+  --bg: #0f0f0f;
+  --card: #1b1b1b;
+  --text: #ffffff;
+  --muted: #b5b5b5;
+  --accent: #ff3d81;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --card: #f3f3f3;
+  --text: #111111;
+  --muted: #555;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  transition: .3s;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #fff;
+  cursor: pointer;
+}
