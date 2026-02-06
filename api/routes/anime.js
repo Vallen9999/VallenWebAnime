@@ -1,8 +1,24 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ status: "API HIDUP 🔥" });
-});
+const {
+  getAnimeList,
+  getAnimeDetail
+} = require("../api/controllers/scrapeController");
 
-module.exports = router; 
+router.get("/", getAnimeList);
+
+router.get("/:slug", (req, res, next) => {
+  const { slug } = req.params;
+
+  if (!slug || typeof slug !== "string") {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid anime slug"
+    });
+  }
+
+  next();
+}, getAnimeDetail);
+
+module.exports = router;

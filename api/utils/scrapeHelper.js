@@ -6,15 +6,22 @@ const BASE_URL = "https://otakudesu.cloud";
 const client = axios.create({
   timeout: 10000,
   headers: {
-    "User-Agent": "Mozilla/5.0"
-  }
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+  },
+  validateStatus: () => true // ⬅️ BIAR GA THROW
 });
 
-// ================= LIST =================
+/* ================= LIST ================= */
 exports.scrapeAnimeList = async () => {
   try {
-    const { data } = await client.get(BASE_URL);
-    const $ = cheerio.load(data);
+    const response = await client.get(BASE_URL);
+
+    if (!response.data || typeof response.data !== "string") {
+      return [];
+    }
+
+    const $ = cheerio.load(response.data);
 
     if (!$(".venz ul li").length) return [];
 
@@ -22,7 +29,6 @@ exports.scrapeAnimeList = async () => {
 
     $(".venz ul li").each((_, el) => {
       const link = $(el).find("a").attr("href");
-
       if (!link) return;
 
       result.push({
@@ -38,14 +44,21 @@ exports.scrapeAnimeList = async () => {
   }
 };
 
-// ================= DETAIL =================
+/* ================= DETAIL ================= */
 exports.scrapeAnimeDetail = async (slug) => {
   try {
-    const { data } = await client.get(`${BASE_URL}/${slug}`);
-    const $ = cheerio.load(data);
+    const response = await client.get(`${BASE_URL}/${slug}`);
+
+    if (!response.data || typeof response.data !== "string") {
+      return null;
+    }
+
+    const $ = cheerio.load(response.data);
 
     const title = $(".jdlrx h1").first().text().trim();
-    const image = $(".fotoanime img").attr("src");
+    const image = $(".fotoanime img").attr("src") || null;
+
+    if (!title) return null;
 
     return {
       title,
